@@ -1,0 +1,11 @@
+{
+  "name": "irsanai-essence-gate",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Central gate for all IrsanAI essences. Validates, matches & creates portable capabilities.",
+  "scripts": {
+    "validate:registry": "tsx scripts/validate-registry.ts --verbose"
+  },
+  "dependencies": { "zod": "^3.23.8" },
+  "devDependencies": { "tsx": "^4.22.4", "typescript": "^5.5.0" }
+}

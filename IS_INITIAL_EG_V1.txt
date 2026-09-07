@@ -1,0 +1,58 @@
+# IS_INITIAL_EG_V1 — IrsanAI-Essence-Gate v0.1.0
+# Basis: IrsanAI-IS v1.0.2 (1441a04) 22 files valid, 8-class rule, Root-Ascent v0.4
+
+## Repo
+Name: IrsanAI-Essence-Gate
+URL: https://github.com/IrsanAI/IrsanAI-Essence-Gate (neu anlegen)
+Description: Central gate for all IrsanAI essences. Validates, matches & creates portable capabilities. 8-class rule, 22 files -> 200+ essences 2030.
+Tags: essence, gatekeeper, is-router-core, gold-buddy, loadout-manager, task-classifier
+
+## Basis aus IS v1.0.2
+- Commits: a0dfb88 is-router-core 12th essence -> 22 files, 7f53837 IRSANAI_2030_PATTERN.md 9.9K, 1441a04 AI_COLLABORATION.md 7.8K
+- Build Gate: npx tsx scripts/validate-registry.ts --verbose -> 22 files all valid, tsc schemas GRÜN, tsc is-core GRÜN, vitest 25/25
+- 8 Klassen: ModelRegistry, EssenceLibrary (jetzt remote), LoadoutManager, TaskClassifier, LoadoutRouter, PerformanceTracker, SelfAnalyzer, SelfOptimizer
+- Verbot: photon|renderHost|Viewer|Landing|FileSystem|Transport -> 0 Treffer
+
+## EG Purpose
+- Single Source of Truth für alle Essenzen (statt lokal in jedem Repo)
+- Gatekeeper Flow: Request (human/agent/llm) -> TaskClassifier -> essenceGuess -> Match gegen 12 -> if <0.8 Elicitor fragt "Was ist Essence deines Ziels?" -> SelfAnalyzer Gap -> Creator draft new essence.json -> validate GRÜN -> LoadoutManager neues Loadout -> sofort anbieten
+
+## Structure v0.1.0
+IrsanAI-EG/
+  README.md
+  packages/schemas/src/essence.schema.ts (canonical)
+  registry/essences/ (Seed: 12 aus IS, inkl is-router-core.json, Ziel 200+)
+  src/
+    gatekeeper.ts (Decide)
+    essence-matcher.ts (Observe/Orient - simple term match v0.1, später pgvector)
+    essence-elicitor.ts (fragt nach Ziel-Essence)
+  scripts/validate-registry.ts
+  docs/
+    IRSANAI_2030_PATTERN.md (aus IS kopiert)
+    AI_COLLABORATION.md (aus IS kopiert, Session Start Routine)
+
+## Gold Buddy Integration
+- Gold Buddy = erster Consumer, nicht Gate selbst
+- Agent: registry/agents/gold-buddy.json in EG oder eigenes Repo IrsanAI-Gold-Buddy
+- Nutzt gatekeep() API: intentText -> GateDecision -> Loadout
+- Beispiel: "Gold tracken wann verkaufen" -> gold-decision-support Essence -> gold-intelligence Loadout = [real-time-grounding + deep-reasoning + gold-decision-support]
+
+## Build Gate
+cd ~/github/IrsanAI/IrsanAI-Essence-Gate
+pnpm -F @irsanai/schemas build
+npx tsc -p packages/schemas --noEmit
+npx tsc -p src --noEmit
+npx tsx scripts/validate-registry.ts --verbose -> 12 files all valid
+
+## Next Steps
+[x] Description für GitHub
+[x] README + schemas + gatekeeper.ts + matcher.ts + elicitor.ts + validate script
+[ ] Repo auf GitHub anlegen IrsanAI-Essence-Gate (public)
+[ ] 12 Essences aus IS rüberkopieren (registry/essences/*.json)
+[ ] git add + commit: feat: initial EG v0.1.0 — 12 essences seed + gatekeeper + matcher + elicitor + 8-class rule
+[ ] In IS: EssenceLibrary auf remote EG umstellen (fetch raw GitHub)
+[ ] Gold Buddy Essence draften: gold-decision-support.json
+[ ] Benchmark: EG gatekeep() mit 3 Beispiel intents testen
+
+---
+IrsanAI-EG v0.1.0 + IrsanAI-IS v1.0.2 1441a04 + 8-Class Rule + Gold Buddy first consumer + is-router-core as first meta-essence

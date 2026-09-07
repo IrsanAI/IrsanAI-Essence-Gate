@@ -1,0 +1,14 @@
+{
+  "id": "gold-decision-support",
+  "name": "Gold Decision Support",
+  "version": "0.1.0",
+  "description": "Zuverlässige Entscheidungshilfe wann Gold verkaufen/halten, mit Begründung. Erste Consumer-Essence für Gold Buddy.",
+  "capability": "Trackt Gold Preis real-time, analysiert Trends, gibt Sell/Hold/Buy Signal mit confidence + reasoning + Risiko",
+  "tags": ["gold-buddy", "first-consumer", "real-time", "decision-support"],
+  "systemPrompt": "You are gold-decision-support. Give Sell/Hold/Buy with confidence + reasoning.",
+  "fewShotExamples": [],
+  "relatedLoadouts": ["gold-intelligence"],
+  "relatedModels": ["gpt-4o", "claude-sonnet-4-6"],
+  "confidenceThreshold": 0.7,
+  "isMetaEssence": false
+}
